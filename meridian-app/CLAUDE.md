@@ -439,11 +439,12 @@ Update this section at the end of every Claude Code session.
 
 | Component | Status | Notes |
 |---|---|---|
-| Project setup | ⬜ Not started | |
-| DesignTokens.swift | ⬜ Not started | |
-| SwiftData models | ⬜ Not started | |
+| Project setup | ✅ Done | BIL-7; scheme meridian-app; Xcode 26.5 / iOS 26.5 |
+| DesignTokens.swift | ✅ Done | BIL-7; all colors, fonts, spacing, radius, animation tokens |
+| SwiftData models | ✅ Done | BIL-7; Goal, EvidenceEntry, UserProfile with @Attribute(.unique) ids |
+| Navigation shell + tab bar | ✅ Done | BIL-7; TabView 4 tabs, MeridianTab enum, meridianGold tint |
+| Fraunces font | ⚠️ Pending user action | UIAppFonts wired in pbxproj; download Fraunces-Italic.ttf from Google Fonts → place in meridian-app/Fonts/ |
 | ThreadVisualizationView | ⬜ Not started | Most critical component |
-| Navigation shell + tab bar | ⬜ Not started | |
 | HomeView | ⬜ Not started | |
 | GoalCardView | ⬜ Not started | |
 | CoachNudgeCard | ⬜ Not started | |
@@ -539,3 +540,39 @@ Produces a comprehensive `CODE_AUDIT.md` at the repo root — read-only, never m
 - **SwiftData skill:** consult BEFORE and AFTER any SwiftData model or query work
 - **Code audit skill:** run AFTER each milestone, and BEFORE App Store submission
 - Skills burn tokens — invoke them purposefully, not constantly
+
+
+
+## Git & Version Control
+
+**Remote:** https://github.com/christianberko/Meridian.git
+**Branch strategy:** `main` is the stable branch. Create a new branch for each Linear issue.
+
+### Branch naming convention
+Match the Linear issue identifier exactly:
+bil-7-m1-project-setup-design-tokens-swiftdata-models
+bil-8-m2-threadvisualizationview-component
+bil-9-m3-home-screen
+Linear auto-generates these branch names — copy them directly from the issue.
+
+### Commit message convention
+[BIL-7] Add design tokens and SwiftData models
+
+DesignTokens.swift with all color, font, spacing tokens
+Goal, EvidenceEntry, UserProfile SwiftData models
+App entry point with modelContainer setup
+Tab bar navigation shell
+
+
+### Rules
+- Commit after every meaningful unit of work — not just at the end of an issue
+- Never commit broken code — build must pass before committing
+- Never commit `Info.plist` if it contains the Anthropic API key — it must be in `.gitignore`
+- Push to remote at the end of every Claude Code session
+- Do not force push to `main`
+
+### .gitignore must include
+*.xcuserstate
+xcuserdata/
+.DS_Store
+Info.plist
