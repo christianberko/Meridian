@@ -1,61 +1,44 @@
-//
-//  ContentView.swift
-//  meridian-app
-//
-//  Created by Christian on 5/31/26.
-//
-
 import SwiftUI
 import SwiftData
 
+enum MeridianTab {
+    case home, progress, goals, profile
+}
+
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @State private var selectedTab: MeridianTab = .home
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        TabView(selection: $selectedTab) {
+            HomeView()
+                .tabItem {
+                    Label(AppConstants.Copy.TabBar.home, systemImage: "house.fill")
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
+                .tag(MeridianTab.home)
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
+            ProgressView()
+                .tabItem {
+                    Label(AppConstants.Copy.TabBar.progress, systemImage: "chart.line.uptrend.xyaxis")
+                }
+                .tag(MeridianTab.progress)
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            GoalsView()
+                .tabItem {
+                    Label(AppConstants.Copy.TabBar.goals, systemImage: "target")
+                }
+                .tag(MeridianTab.goals)
+
+            ProfileView()
+                .tabItem {
+                    Label(AppConstants.Copy.TabBar.profile, systemImage: "person.fill")
+                }
+                .tag(MeridianTab.profile)
         }
+        .tint(.meridianGold)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: [Goal.self, EvidenceEntry.self, UserProfile.self], inMemory: true)
 }

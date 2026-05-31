@@ -1,21 +1,15 @@
-//
-//  meridian_appApp.swift
-//  meridian-app
-//
-//  Created by Christian on 5/31/26.
-//
-
 import SwiftUI
 import SwiftData
 
 @main
-struct meridian_appApp: App {
+struct MeridianApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Goal.self,
+            EvidenceEntry.self,
+            UserProfile.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
