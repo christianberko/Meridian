@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Meridian — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200..400;1,9..144,200..400&display=swap"
+  />
+  <style>
+    html, body { margin: 0; padding: 0; background: #14130F; height: 100%; }
+    body {
+      font-family: -apple-system, "SF Pro Text", system-ui, sans-serif;
+      color: #FAFAF8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 0;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    /* Hide scrollbars inside the device but allow scroll */
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* subtle ambient backdrop */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 35%, rgba(245,166,35,0.04), transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 90%, rgba(245,166,35,0.025), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #root { position: relative; z-index: 1; }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="ios-frame.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="icons.jsx"></script>
+  <script type="text/babel" src="thread.jsx"></script>
+  <script type="text/babel" src="home.jsx"></script>
+  <script type="text/babel" src="goal-detail.jsx"></script>
+  <script type="text/babel" src="log-sheet.jsx"></script>
+  <script type="text/babel" src="progress.jsx"></script>
+  <script type="text/babel" src="complete.jsx"></script>
+  <script type="text/babel" src="new-goal.jsx"></script>
+  <script type="text/babel" src="profile.jsx"></script>
+  <script type="text/babel" src="success.jsx"></script>
+  <script type="text/babel" src="streak-gap.jsx"></script>
+  <script type="text/babel" src="milestone.jsx"></script>
+  <script type="text/babel" src="all-threads.jsx"></script>
+
+  <script type="text/babel">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "name": "Christian",
+      "period": "morning",
+      "accent": "#F5A623",
+      "screen": "home",
+      "sheet": false,
+      "successMood": "💪",
+      "milestoneDays": 30
+    }/*EDITMODE-END*/;
+
+    function App() {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+      const [route, setRoute] = React.useState(tweaks.screen || 'home');
+
+      React.useEffect(() => { setRoute(tweaks.screen || 'home'); }, [tweaks.screen]);
+
+      const openGoal = () => { setTweak('screen', 'detail'); setRoute('detail'); };
+      const back = () => { setTweak('screen', 'home'); setRoute('home'); };
+      const sheetOpen = !!tweaks.sheet;
+      const openSheet = () => setTweak('sheet', true);
+      const closeSheet = () => setTweak('sheet', false);
+
+      return (
+        <>
+          <IOSDevice width={390} height={844} dark={true}>
+            {route === 'detail'
+              ? <GoalDetailScreen goal={DAILY_WRITING_GOAL} onBack={back} onLog={openSheet} />
+              : route === 'progress'
+              ? <ProgressScreen onTab={(t) => { const v = (t === 'home' || t === 'progress') ? t : 'home'; setTweak('screen', v); setRoute(v); }} />
+              : route === 'complete'
+              ? <GoalCompleteScreen onClose={back} onSave={back} onNew={() => { setTweak('screen', 'new'); setRoute('new'); }} />
+              : route === 'new'
+              ? <NewGoalScreen onBack={back} onCreate={back} />
+              : route === 'profile'
+              ? <ProfileScreen tweaks={tweaks} onTab={(t) => { const v = (t === 'home' || t === 'progress' || t === 'profile') ? t : 'home'; setTweak('screen', v); setRoute(v); }} />
+              : route === 'success'
+              ? <LogSuccessScreen mood={tweaks.successMood} onDismiss={() => { setTweak('screen', 'detail'); setRoute('detail'); }} />
+              : route === 'gap'
+              ? <StreakGapScreen onLog={openSheet} onLater={back} />
+              : route === 'milestone'
+              ? <StreakMilestoneScreen days={tweaks.milestoneDays} entries={tweaks.milestoneDays} onContinue={() => { setTweak('screen', 'detail'); setRoute('detail'); }} />
+              : route === 'threads'
+              ? <AllThreadsScreen
+                  onBack={back}
+                  onOpenGoal={openGoal}
+                  onNewGoal={() => { setTweak('screen', 'new'); setRoute('new'); }}
+                  onTab={(t) => { const v = (t === 'home' || t === 'progress' || t === 'profile') ? t : (t === 'goals' ? 'threads' : 'home'); setTweak('screen', v); setRoute(v); }}
+                />
+              : <HomeScreen
+                  tweaks={tweaks}
+                  onOpenGoal={openGoal}
+                  onLog={openSheet}
+                  onSeeAll={() => { setTweak('screen', 'threads'); setRoute('threads'); }}
+                  onTab={(t) => { if (t === 'goals') { setTweak('screen', 'threads'); setRoute('threads'); } else if (t === 'progress' || t === 'profile') { setTweak('screen', t); setRoute(t); } }}
+                />}
+            <LogEvidenceSheet open={sheetOpen} onClose={closeSheet} onSave={() => { closeSheet(); setTweak('screen', 'success'); setRoute('success'); }} />
+          </IOSDevice>
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection label="Screen">
+              <TweakRadio
+                label="View"
+                value={route}
+                onChange={(v) => { setTweak('screen', v); setRoute(v); }}
+                options={[
+                  { value: 'home', label: 'Home' },
+                  { value: 'detail', label: 'Detail' },
+                  { value: 'progress', label: 'Progress' },
+                  { value: 'complete', label: 'Done!' },
+                  { value: 'new', label: 'New goal' },
+                  { value: 'profile', label: 'Profile' },
+                  { value: 'success', label: 'Success' },
+                  { value: 'gap', label: 'Gap' },
+                  { value: 'milestone', label: 'Milestone' },
+                  { value: 'threads', label: 'Threads' },
+                ]}
+              />
+              <TweakToggle label="Log sheet" value={sheetOpen} onChange={(v) => setTweak('sheet', v)} />
+            </TweakSection>
+            <TweakSection label="Identity">
+              <TweakText label="Name" value={tweaks.name} onChange={(v) => setTweak('name', v)} />
+            </TweakSection>
+            <TweakSection label="Time of day">
+              <TweakRadio
+                label="Period"
+                value={tweaks.period}
+                onChange={(v) => setTweak('period', v)}
+                options={[
+                  { value: 'morning', label: 'Morn' },
+                  { value: 'afternoon', label: 'Aft' },
+                  { value: 'evening', label: 'Eve' },
+                ]}
+              />
+            </TweakSection>
+            <TweakSection label="Milestone">
+              <TweakRadio
+                label="Days"
+                value={tweaks.milestoneDays}
+                onChange={(v) => setTweak('milestoneDays', v)}
+                options={[
+                  { value: 7, label: '7' },
+                  { value: 30, label: '30' },
+                  { value: 60, label: '60' },
+                  { value: 90, label: '90' },
+                ]}
+              />
+            </TweakSection>
+            <TweakSection label="Success mood">
+              <TweakRadio
+                label="Emoji"
+                value={tweaks.successMood}
+                onChange={(v) => setTweak('successMood', v)}
+                options={[
+                  { value: '\uD83D\uDE10', label: '\uD83D\uDE10' },
+                  { value: '\uD83D\uDE42', label: '\uD83D\uDE42' },
+                  { value: '\uD83D\uDCAA', label: '\uD83D\uDCAA' },
+                  { value: '\uD83D\uDD25', label: '\uD83D\uDD25' },
+                ]}
+              />
+            </TweakSection>
+            <TweakSection label="Accent">
+              <TweakColor
+                label="Tone"
+                value={tweaks.accent}
+                onChange={(v) => setTweak('accent', v)}
+                options={['#F5A623', '#D98F3A', '#C9842B', '#E8B568']}
+              />
+            </TweakSection>
+          </TweaksPanel>
+        </>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
