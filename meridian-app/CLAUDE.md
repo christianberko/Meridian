@@ -444,7 +444,7 @@ Update this section at the end of every Claude Code session.
 | SwiftData models | ✅ Done | BIL-7; Goal, EvidenceEntry, UserProfile with @Attribute(.unique) ids |
 | Navigation shell + tab bar | ✅ Done | BIL-7; TabView 4 tabs, MeridianTab enum, meridianGold tint |
 | Fraunces font | ⚠️ Pending user action | UIAppFonts wired in pbxproj; download Fraunces-Italic.ttf from Google Fonts → place in meridian-app/Fonts/ |
-| ThreadVisualizationView | ⬜ Not started | Most critical component |
+| ThreadVisualizationView | ✅ Done | BIL-8; Canvas path, Catmull-Rom spline, 4 variants, draw-on anim, glow pulse |
 | HomeView | ⬜ Not started | |
 | GoalCardView | ⬜ Not started | |
 | CoachNudgeCard | ⬜ Not started | |
