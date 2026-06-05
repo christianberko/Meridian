@@ -6,6 +6,7 @@ struct HomeView: View {
     @Query private var profiles: [UserProfile]
     @State private var showLogEvidence = false
     @State private var nudgeDismissed = false
+    @State private var coachVM = AICoachViewModel()
 
     private var goals: [Goal] { allGoals.filter { !$0.isCompleted } }
 
@@ -69,14 +70,20 @@ struct HomeView: View {
 
                 if !nudgeDismissed {
                     CoachNudgeCard(
-                        nudgeText: "Your thread is ready for today. Show your work.",
+                        nudgeText: coachVM.nudgeText.isEmpty ? "Your thread is ready for today. Show your work." : coachVM.nudgeText,
                         onAccept: { showLogEvidence = true },
                         onDismiss: {
                             withAnimation(MAnimation.quick) { nudgeDismissed = true }
-                        }
+                        },
+                        isLoading: coachVM.isLoading
                     )
                     .padding(.horizontal, MSpacing.base)
                     .padding(.bottom, MSpacing.lg)
+                    .task(id: goals.first?.id) {
+                        if let goal = goals.first {
+                            await coachVM.fetchNudge(for: goal)
+                        }
+                    }
                 }
 
                 threadsSection

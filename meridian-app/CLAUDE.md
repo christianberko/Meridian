@@ -453,7 +453,8 @@ Update this section at the end of every Claude Code session.
 | EvidenceEntryRow | ✅ Done | BIL-10; node + thread line gutter, date/time label, mood emoji, word count meta |
 | LogEvidenceSheet | ✅ Done | BIL-11; TextEditor, live word count, mood selector, SwiftData save, gold CTA |
 | MoodSelector | ✅ Done | BIL-11; 4 emoji options, gold selected state, animated transitions |
-| AnthropicService | ⬜ Not started | |
+| AnthropicService | ✅ Done | BIL-12; URLSession, x-api-key header, JSON parse, graceful error fallback |
+| AICoachViewModel | ✅ Done | BIL-12; @Observable, per-goal daily cache in UserDefaults, loading state |
 | ProgressView | ⬜ Not started | |
 | ThreadWallView | ⬜ Not started | |
 | OnboardingFlow | ⬜ Not started | |

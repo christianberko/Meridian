@@ -4,6 +4,9 @@ struct CoachNudgeCard: View {
     let nudgeText: String
     let onAccept: () -> Void
     let onDismiss: () -> Void
+    var isLoading: Bool = false
+
+    @State private var pulseOpacity: Double = 1.0
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -46,11 +49,30 @@ struct CoachNudgeCard: View {
                         .foregroundStyle(Color.meridianWarmGrey.opacity(0.6))
                 }
 
-                Text(nudgeText)
-                    .font(.mBody)
-                    .foregroundStyle(Color.meridianOffWhite)
-                    .lineSpacing(4)
-                    .fixedSize(horizontal: false, vertical: true)
+                if isLoading {
+                    VStack(alignment: .leading, spacing: MSpacing.sm) {
+                        RoundedRectangle(cornerRadius: MRadius.xs)
+                            .fill(Color.meridianWarmGrey.opacity(0.2))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 12)
+                        RoundedRectangle(cornerRadius: MRadius.xs)
+                            .fill(Color.meridianWarmGrey.opacity(0.2))
+                            .frame(maxWidth: 200)
+                            .frame(height: 12)
+                    }
+                    .opacity(pulseOpacity)
+                    .onAppear {
+                        withAnimation(.easeInOut(duration: 0.9).repeatForever(autoreverses: true)) {
+                            pulseOpacity = 0.35
+                        }
+                    }
+                } else {
+                    Text(nudgeText)
+                        .font(.mBody)
+                        .foregroundStyle(Color.meridianOffWhite)
+                        .lineSpacing(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 HStack(spacing: MSpacing.base) {
                     Button(action: onAccept) {
