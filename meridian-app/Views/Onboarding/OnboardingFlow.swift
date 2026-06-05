@@ -93,5 +93,9 @@ struct OnboardingFlow: View {
             profile.hasCompletedOnboarding = true
             context.insert(profile)
         }
+
+        Task {
+            await NotificationService.shared.requestPermission()
+        }
     }
 }

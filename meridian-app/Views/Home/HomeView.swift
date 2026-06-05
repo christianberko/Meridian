@@ -8,6 +8,9 @@ struct HomeView: View {
     @State private var showNewGoal = false
     @State private var nudgeDismissed = false
     @State private var coachVM = AICoachViewModel()
+    @State private var showStreakBroken = false
+    @State private var showStreakMilestone = false
+    @State private var milestoneDays = 0
 
     private var goals: [Goal] { allGoals.filter { !$0.isCompleted } }
 
@@ -59,6 +62,35 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showNewGoal) {
             NewGoalView()
+        }
+        .fullScreenCover(isPresented: $showStreakBroken) {
+            StreakBrokenView(
+                onLog: { showStreakBroken = false; showLogEvidence = true },
+                onDismiss: { showStreakBroken = false }
+            )
+        }
+        .fullScreenCover(isPresented: $showStreakMilestone) {
+            StreakMilestoneView(days: milestoneDays) { showStreakMilestone = false }
+        }
+        .task {
+            checkStreakState()
+        }
+    }
+
+    private func checkStreakState() {
+        let milestones = [7, 30, 60, 90]
+        let best = goals.map(\.currentStreak).max() ?? 0
+        if milestones.contains(best) {
+            milestoneDays = best
+            showStreakMilestone = true
+            return
+        }
+        let cal = Calendar.current
+        if let lastEntryDate = goals.compactMap(\.lastEntry).map(\.createdAt).max() {
+            let daysAgo = cal.dateComponents([.day], from: lastEntryDate, to: Date()).day ?? 0
+            if daysAgo > 1 && daysAgo < 14 {
+                showStreakBroken = true
+            }
         }
     }
 

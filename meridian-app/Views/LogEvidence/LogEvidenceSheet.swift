@@ -8,6 +8,7 @@ struct LogEvidenceSheet: View {
 
     @State private var content = ""
     @State private var selectedMood = "strong"
+    @State private var showSuccess = false
     @FocusState private var editorFocused: Bool
 
     private var wordCount: Int {
@@ -29,7 +30,15 @@ struct LogEvidenceSheet: View {
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
+            if showSuccess {
+                EvidenceSuccessOverlay(mood: selectedMood) {
+                    dismiss()
+                }
+                .transition(.opacity)
+            }
+
             Color.meridianSurface.ignoresSafeArea()
+                .opacity(showSuccess ? 0 : 1)
 
             RadialGradient(
                 gradient: Gradient(colors: [Color.meridianGold.opacity(0.10), Color.clear]),
@@ -218,6 +227,8 @@ struct LogEvidenceSheet: View {
             wordCount: wordCount
         )
         goal.entries.append(entry)
-        dismiss()
+        withAnimation(MAnimation.quick) {
+            showSuccess = true
+        }
     }
 }

@@ -460,10 +460,15 @@ Update this section at the end of every Claude Code session.
 | MomentumGraphView | ✅ Done | BIL-13; Swift Charts LineChart + AreaMark, 8-week weekly cadence, glowing PointMark |
 | OnboardingFlow | ✅ Done | BIL-14; 4-screen TabView page, dot indicator, hasCompletedOnboarding gate |
 | NewGoalView | ✅ Done | BIL-14; name/category/intention/cadence/deadline form, NavigationStack push to GoalDetail |
-| ProfileView | ⬜ Not started | |
-| Empty states | ⬜ Not started | |
-| Animations + polish | ⬜ Not started | |
-| Notifications | ⬜ Not started | |
+| ProfileView | ✅ Done | BIL-15; stats row, 7-day streak dots, settings list, account section |
+| AllThreadsView | ✅ Done | BIL-15; active + completed sections, gold left border rows, floating + FAB |
+| EvidenceSuccessOverlay | ✅ Done | BIL-15; spring node anim, gold glow, mood emoji, 2s auto-dismiss |
+| StreakBrokenView | ✅ Done | BIL-15; dotted gap bridge visualization, thread continues messaging |
+| StreakMilestoneView | ✅ Done | BIL-15; 96pt gold milestone count, radial glow; shown at 7/30/60/90 days |
+| NotificationService | ✅ Done | BIL-15; UNUserNotificationCenter, daily reminder, permission request on onboarding |
+| Empty states | ✅ Done | BIL-15; AllThreadsView, ThreadWallView, ProgressView all have empty states |
+| Animations + polish | ✅ Done | BIL-15; success overlay spring anim, streak screens, scale-on-press from BIL-9 |
+| Notifications | ✅ Done | BIL-15; permission requested post-onboarding, daily reminder scheduling |
 
 ---
 
