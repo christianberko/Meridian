@@ -455,8 +455,9 @@ Update this section at the end of every Claude Code session.
 | MoodSelector | ✅ Done | BIL-11; 4 emoji options, gold selected state, animated transitions |
 | AnthropicService | ✅ Done | BIL-12; URLSession, x-api-key header, JSON parse, graceful error fallback |
 | AICoachViewModel | ✅ Done | BIL-12; @Observable, per-goal daily cache in UserDefaults, loading state |
-| ProgressView | ⬜ Not started | |
-| ThreadWallView | ⬜ Not started | |
+| ProgressView | ✅ Done | BIL-13; date header, stat chips, ThreadWall, progress bars, Momentum graph |
+| ThreadWallView | ✅ Done | BIL-13; 4 vertical threads, cold/burning legend, ambient glow, SwiftData-driven |
+| MomentumGraphView | ✅ Done | BIL-13; Swift Charts LineChart + AreaMark, 8-week weekly cadence, glowing PointMark |
 | OnboardingFlow | ⬜ Not started | |
 | NewGoalView | ⬜ Not started | |
 | ProfileView | ⬜ Not started | |
