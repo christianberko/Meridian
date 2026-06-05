@@ -445,10 +445,10 @@ Update this section at the end of every Claude Code session.
 | Navigation shell + tab bar | ✅ Done | BIL-7; TabView 4 tabs, MeridianTab enum, meridianGold tint |
 | Fraunces font | ⚠️ Pending user action | UIAppFonts wired in pbxproj; download Fraunces-Italic.ttf from Google Fonts → place in meridian-app/Fonts/ |
 | ThreadVisualizationView | ✅ Done | BIL-8; Canvas path, Catmull-Rom spline, 4 variants, draw-on anim, glow pulse |
-| HomeView | ⬜ Not started | |
-| GoalCardView | ⬜ Not started | |
-| CoachNudgeCard | ⬜ Not started | |
-| GoalDetailView | ⬜ Not started | |
+| HomeView | ✅ Done | BIL-9; greeting, threads scroll, nudge card, empty state, log evidence CTA |
+| GoalCardView | ✅ Done | BIL-9; mini thread, stats row, press scale animation, nav to GoalDetail |
+| CoachNudgeCard | ✅ Done | BIL-9; coach label, nudge text, accept/dismiss actions, gold corner glow |
+| GoalDetailView | 🔲 Placeholder | BIL-9; minimal placeholder — full impl in BIL-10 |
 | EvidenceTimelineView | ⬜ Not started | |
 | LogEvidenceSheet | ⬜ Not started | |
 | MoodSelector | ⬜ Not started | |
