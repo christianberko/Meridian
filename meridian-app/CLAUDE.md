@@ -448,8 +448,9 @@ Update this section at the end of every Claude Code session.
 | HomeView | ✅ Done | BIL-9; greeting, threads scroll, nudge card, empty state, log evidence CTA |
 | GoalCardView | ✅ Done | BIL-9; mini thread, stats row, press scale animation, nav to GoalDetail |
 | CoachNudgeCard | ✅ Done | BIL-9; coach label, nudge text, accept/dismiss actions, gold corner glow |
-| GoalDetailView | 🔲 Placeholder | BIL-9; minimal placeholder — full impl in BIL-10 |
-| EvidenceTimelineView | ⬜ Not started | |
+| GoalDetailView | ✅ Done | BIL-10; hero thread card, month axis, coach nudge, evidence timeline, log CTA |
+| EvidenceTimelineView | ✅ Done | BIL-10; sorted entries, 5-entry preview, empty state |
+| EvidenceEntryRow | ✅ Done | BIL-10; node + thread line gutter, date/time label, mood emoji, word count meta |
 | LogEvidenceSheet | ⬜ Not started | |
 | MoodSelector | ⬜ Not started | |
 | AnthropicService | ⬜ Not started | |
