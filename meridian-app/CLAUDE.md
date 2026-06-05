@@ -451,8 +451,8 @@ Update this section at the end of every Claude Code session.
 | GoalDetailView | ✅ Done | BIL-10; hero thread card, month axis, coach nudge, evidence timeline, log CTA |
 | EvidenceTimelineView | ✅ Done | BIL-10; sorted entries, 5-entry preview, empty state |
 | EvidenceEntryRow | ✅ Done | BIL-10; node + thread line gutter, date/time label, mood emoji, word count meta |
-| LogEvidenceSheet | ⬜ Not started | |
-| MoodSelector | ⬜ Not started | |
+| LogEvidenceSheet | ✅ Done | BIL-11; TextEditor, live word count, mood selector, SwiftData save, gold CTA |
+| MoodSelector | ✅ Done | BIL-11; 4 emoji options, gold selected state, animated transitions |
 | AnthropicService | ⬜ Not started | |
 | ProgressView | ⬜ Not started | |
 | ThreadWallView | ⬜ Not started | |

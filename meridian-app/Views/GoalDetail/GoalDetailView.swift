@@ -49,7 +49,7 @@ struct GoalDetailView: View {
         .toolbar(.hidden, for: .navigationBar)
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showLogEvidence) {
-            logEvidencePlaceholder
+            LogEvidenceSheet(goal: goal)
         }
     }
 
@@ -257,28 +257,6 @@ struct GoalDetailView: View {
             .padding(.horizontal, MSpacing.base)
             .padding(.bottom, MSpacing.sm)
             .background(Color.meridianCharcoal)
-        }
-    }
-
-    // MARK: - Placeholder Sheet
-
-    private var logEvidencePlaceholder: some View {
-        ZStack {
-            Color.meridianSurface.ignoresSafeArea()
-            VStack(spacing: MSpacing.md) {
-                RoundedRectangle(cornerRadius: MRadius.full)
-                    .fill(Color.meridianWarmGrey.opacity(0.3))
-                    .frame(width: 36, height: 4)
-                    .padding(.top, MSpacing.md)
-                Spacer()
-                Text(AppConstants.Copy.logEvidenceButton)
-                    .font(.mTitle)
-                    .foregroundStyle(Color.meridianOffWhite)
-                Text("Coming in BIL-11")
-                    .font(.mBody)
-                    .foregroundStyle(Color.meridianWarmGrey)
-                Spacer()
-            }
         }
     }
 
