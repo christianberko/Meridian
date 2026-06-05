@@ -6,6 +6,7 @@ struct GoalDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showLogEvidence = false
     @State private var nudgeDismissed = false
+    @State private var coachVM = AICoachViewModel()
 
     private var sinceLabel: String {
         let f = DateFormatter()
@@ -200,14 +201,18 @@ struct GoalDetailView: View {
     private var coachSection: some View {
         if !nudgeDismissed {
             CoachNudgeCard(
-                nudgeText: "Your thread is ready for another entry. Show your work.",
+                nudgeText: coachVM.nudgeText.isEmpty ? "Your thread is ready for another entry. Show your work." : coachVM.nudgeText,
                 onAccept: { showLogEvidence = true },
                 onDismiss: {
                     withAnimation(MAnimation.quick) { nudgeDismissed = true }
-                }
+                },
+                isLoading: coachVM.isLoading
             )
             .padding(.horizontal, MSpacing.base)
             .padding(.bottom, MSpacing.lg)
+            .task {
+                await coachVM.fetchNudge(for: goal)
+            }
         }
     }
 
