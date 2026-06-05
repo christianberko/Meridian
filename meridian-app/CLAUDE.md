@@ -458,8 +458,8 @@ Update this section at the end of every Claude Code session.
 | ProgressView | ✅ Done | BIL-13; date header, stat chips, ThreadWall, progress bars, Momentum graph |
 | ThreadWallView | ✅ Done | BIL-13; 4 vertical threads, cold/burning legend, ambient glow, SwiftData-driven |
 | MomentumGraphView | ✅ Done | BIL-13; Swift Charts LineChart + AreaMark, 8-week weekly cadence, glowing PointMark |
-| OnboardingFlow | ⬜ Not started | |
-| NewGoalView | ⬜ Not started | |
+| OnboardingFlow | ✅ Done | BIL-14; 4-screen TabView page, dot indicator, hasCompletedOnboarding gate |
+| NewGoalView | ✅ Done | BIL-14; name/category/intention/cadence/deadline form, NavigationStack push to GoalDetail |
 | ProfileView | ⬜ Not started | |
 | Empty states | ⬜ Not started | |
 | Animations + polish | ⬜ Not started | |

@@ -5,6 +5,7 @@ struct HomeView: View {
     @Query(sort: \Goal.createdAt, order: .reverse) private var allGoals: [Goal]
     @Query private var profiles: [UserProfile]
     @State private var showLogEvidence = false
+    @State private var showNewGoal = false
     @State private var nudgeDismissed = false
     @State private var coachVM = AICoachViewModel()
 
@@ -55,6 +56,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showLogEvidence) {
             logEvidencePlaceholder
+        }
+        .sheet(isPresented: $showNewGoal) {
+            NewGoalView()
         }
     }
 
@@ -138,6 +142,12 @@ struct HomeView: View {
                     .font(.fraunces(size: 22))
                     .foregroundStyle(Color.meridianOffWhite)
                 Spacer()
+                Button(action: { showNewGoal = true }) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Color.meridianGold)
+                        .frame(width: 30, height: 30)
+                }
                 NavigationLink {
                     GoalsView()
                 } label: {

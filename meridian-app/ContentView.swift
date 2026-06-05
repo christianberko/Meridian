@@ -6,9 +6,22 @@ enum MeridianTab {
 }
 
 struct ContentView: View {
+    @Query private var profiles: [UserProfile]
     @State private var selectedTab: MeridianTab = .home
 
+    private var showOnboarding: Bool {
+        profiles.isEmpty || !(profiles.first?.hasCompletedOnboarding ?? false)
+    }
+
     var body: some View {
+        if showOnboarding {
+            OnboardingFlow()
+        } else {
+            tabView
+        }
+    }
+
+    private var tabView: some View {
         TabView(selection: $selectedTab) {
             HomeView()
                 .tabItem {
